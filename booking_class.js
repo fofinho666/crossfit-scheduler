@@ -34,10 +34,11 @@ const automation = async (crossfitClassLocal, crossfitClassHour, daysInAdvanceRe
     await page.click('input[value=LOGIN]');
 
     // wait for splash screen to go away
+    await page.waitFor('div[id="splash_screen"]', {visible: false});
     await page.waitFor(2000);
 
     // check if there is a notification
-    const notificationXpath = '//*[contains(text(), "Remind me later")]';
+    const notificationXpath = '//div[@class="but_back"]';
     const notification = await page.$x(notificationXpath);
     if (notification.length != 0) {
       await notification[0].click();
