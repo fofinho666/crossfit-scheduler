@@ -13,7 +13,7 @@ function genCrossfitClassDate(daysInAdvance) {
   return (yyyy + '-' + m + '-' + d);
 }
 
-const automation = async (crossfitClassLocal, crossfitClassHour, daysInAdvanceRegistration) => {
+const automation = async (crossfitClassLocal, crossfitClassHour, daysInAdvance) => {
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const page = await browser.newPage();
   // Configure the navigation timeout
@@ -56,10 +56,11 @@ const automation = async (crossfitClassLocal, crossfitClassHour, daysInAdvanceRe
 
     // select the day to schedule
     const crossfitClassDate = genCrossfitClassDate(daysInAdvance);
-    const crossfitClassSelector = `div[data-date="${crossfitClassDate}"]`;
+    const crossfitClassSelector = `div[data-date="${crossfitClassDate}"][class="calendar-day calendar-day-weekend"]`;
+    const selectecCrossfitClassSelector = `${crossfitClassSelector.slice(0,-2)} calendar-day-selected"]`;
     await page.waitForSelector(crossfitClassSelector);
     await page.click(crossfitClassSelector);
-    await page.waitFor(`${crossfitClassSelector}[class~="calendar-day-selected"]`);
+    await page.waitFor(selectecCrossfitClassSelector);
 
     // register the class hour
     const registerButtonXpath = `//*[contains(text(), '${crossfitClassLocal}')]/../../div[3]/div[contains(text(), '${crossfitClassHour}')]/../div[3]/button`;
