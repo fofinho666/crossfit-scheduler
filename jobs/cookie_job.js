@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const {saveCookies} = require('../services/cookie_sevices')
 
 
-const loginAndSaveCookies = async (page, mongoClient) => {
+const loginAndSaveCookies = async (page) => {
   // search for the box
   await page.waitForSelector('input[type=search]');
   await page.type('input[type=search]', process.env.BOX_NAME);
@@ -20,17 +20,17 @@ const loginAndSaveCookies = async (page, mongoClient) => {
   await page.waitForTimeout(1500);
 
   const cookies = await page.cookies();
-  return await saveCookies(mongoClient, cookies);
+  return await saveCookies(cookies);
 }
 
-const run = async (mongoClient) => {
+const run = async () => {
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const [page] = await browser.pages();
   await page.setViewport({ width: 1280, height: 720});
   page.setDefaultNavigationTimeout(0);
 
   await page.goto(process.env.REGIBOX_URL);
-  await loginAndSaveCookies(page, mongoClient);
+  await loginAndSaveCookies(page);
   await browser.close();
 }
 

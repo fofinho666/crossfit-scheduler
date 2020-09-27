@@ -1,25 +1,21 @@
-const saveCookies = async (mongoClient, cookies) => {
-  await mongoClient.connect();
-  const database = mongoClient.db('agenda');
+const db = require('../db');
+
+const saveCookies = async (cookies) => {
+  const client = await db.client();
+  const database = client.db('agenda');
   const collection = database.collection('cookies');
 
   await collection.deleteMany({});
-  result = await collection.insertMany(cookies);
-  await mongoClient.close();
-
-  return result
+  return await collection.insertMany(cookies);
 }
 
-const loadCookies = async (mongoClient) => {
-  await mongoClient.connect();
-  const database = mongoClient.db('agenda');
+const loadCookies = async () => {
+  const client = await db.client();
+  const database = client.db('agenda');
   const collection = database.collection('cookies');
 
   const cursor = collection.find({}, {projection: {_id: 0}});
-  result = await cursor.toArray();
-  await mongoClient.close();
-
-  return result
+  return await cursor.toArray();
 }
 
 module.exports = {

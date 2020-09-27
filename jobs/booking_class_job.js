@@ -15,7 +15,7 @@ function genCrossfitClassDate(daysInAdvance) {
   return (yyyy + '-' + m + '-' + d);
 }
 
-const run = async (mongoClient, crossfitClassLocal, crossfitClassHour, daysInAdvance) => {
+const run = async (crossfitClassLocal, crossfitClassHour, daysInAdvance) => {
   const base_url = process.env.REGIBOX_URL;
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const [page] = await browser.pages();
@@ -24,13 +24,13 @@ const run = async (mongoClient, crossfitClassLocal, crossfitClassHour, daysInAdv
   page.setDefaultNavigationTimeout(0);
 
   try {
-    const cookies = await loadCookies(mongoClient);
+    const cookies = await loadCookies();
     page.setCookie(...cookies);
 
     await page.goto(base_url);
 
     if (page.url() === `${base_url}/login.php`){
-      await loginAndSaveCookies(page, mongoClient);
+      await loginAndSaveCookies(page);
     }
     else{
       // wait for splash screen to go away

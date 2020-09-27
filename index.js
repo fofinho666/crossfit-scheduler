@@ -1,11 +1,11 @@
 require('dotenv').config();
+const db = require('./db');
 const bookingClassJob = require('./jobs/booking_class_job');
 const CookieJob = require('./jobs/cookie_job');
 const express = require('express');
 const basicAuth = require('express-basic-auth');
 const Agenda = require('agenda');
 const Agendash = require('agendash');
-const { MongoClient } = require("mongodb");
 
 async function main() {
   const appTitle = "CrossFit Scheduler";
@@ -13,23 +13,23 @@ async function main() {
   const port = parseInt(process.env.PORT)
 
   const app = express();
-  const client = await MongoClient.connect(process.env.MONGODB_URI, { useUnifiedTopology: true });
+  const client = await db.client();
   const agenda = new Agenda({mongo: client.db('agenda')});
 
   agenda.define('Refresh Cookie', async () => {
-    await CookieJob.run(client);
+    await CookieJob.run();
   });
   agenda.define('CrossFit Class', async job => {
     const { local, hour, daysInAdvance } = job.attrs.data;
-    await bookingClassJob.run(client, local, hour, daysInAdvance);
+    await bookingClassJob.run(local, hour, daysInAdvance);
   });
   agenda.define('Weightlifting Class', async job => {
     const { local, hour, daysInAdvance } = job.attrs.data;
-    await bookingClassJob.run(client, local, hour, daysInAdvance);
+    await bookingClassJob.run(local, hour, daysInAdvance);
   });
   agenda.define('Gymnastics Class', async job => {
     const { local, hour, daysInAdvance } = job.attrs.data;
-    await bookingClassJob.run(client, local, hour, daysInAdvance);
+    await bookingClassJob.run(local, hour, daysInAdvance);
   });
 
   // Wait for agenda to connect. Should never fail since connection failures
