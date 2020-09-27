@@ -19,6 +19,7 @@ const run = async (mongoClient, crossfitClassLocal, crossfitClassHour, daysInAdv
   const base_url = process.env.REGIBOX_URL;
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const [page] = await browser.pages();
+  await page.setViewport({ width: 1280, height: 720});
   // Configure the navigation timeout
   page.setDefaultNavigationTimeout(0);
 

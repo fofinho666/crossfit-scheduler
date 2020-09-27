@@ -26,6 +26,7 @@ const loginAndSaveCookies = async (page, mongoClient) => {
 const run = async (mongoClient) => {
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const [page] = await browser.pages();
+  await page.setViewport({ width: 1280, height: 720});
   page.setDefaultNavigationTimeout(0);
 
   await page.goto(process.env.REGIBOX_URL);
