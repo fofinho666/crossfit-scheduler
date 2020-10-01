@@ -3,16 +3,14 @@ const puppeteer = require('puppeteer');
 const fs = require("fs");
 const {loginAndSaveCookies} = require('./cookie_job');
 const {loadCookies} = require('../services/cookie_sevices')
+const { add, format } = require('date-fns')
 
-function genCrossfitClassDate(daysInAdvance) {
-  let today = new Date();
-  today.setDate(today.getDate() + daysInAdvance);
+function genCrossfitClassDateSelector(daysInAdvance) {
+  const date = new Date()
+  const futurDate = add(date, {days: daysInAdvance, months: -1});
+  const dataDateValue = format(futurDate, "yyyy-M-d");
 
-  const d = String(today.getDate());
-  const m = String(today.getMonth());
-  const yyyy = today.getFullYear();
-
-  return (yyyy + '-' + m + '-' + d);
+  return `div[class~="calendar-month-current"] div[data-date="${dataDateValue}"]`;
 }
 
 const run = async (crossfitClassLocal, crossfitClassHour, daysInAdvance) => {
@@ -55,9 +53,7 @@ const run = async (crossfitClassLocal, crossfitClassHour, daysInAdvance) => {
     await page.waitForSelector('div[class~=router-transition-forward]', { hidden: true });
 
     // select the day to schedule
-    const crossfitClassDate = genCrossfitClassDate(daysInAdvance);
-    const crossfitClassDateSelector = `div[data-date="${crossfitClassDate}"]`;
-
+    const crossfitClassDateSelector = genCrossfitClassDateSelector(daysInAdvance);
     const crossfitClassSelector = `${crossfitClassDateSelector}[class~="calendar-day"]`;
     await page.waitForSelector(crossfitClassSelector);
     await page.click(crossfitClassSelector);

@@ -37,7 +37,7 @@ async function main() {
   await new Promise(resolve => agenda.once('ready', resolve));
 
   agenda.every(
-    "0 0 * * 6",
+    "0 5 1 * *",
     'Refresh Cookie',
     { timezone: 'Europe/Lisbon' }
   );
