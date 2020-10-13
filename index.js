@@ -35,48 +35,6 @@ async function main() {
   // Wait for agenda to connect. Should never fail since connection failures
   // should happen in the `await MongoClient.connect()` call.
   await new Promise(resolve => agenda.once('ready', resolve));
-
-  agenda.every(
-    "0 5 1 * *",
-    'Refresh Cookie',
-    { timezone: 'Europe/Lisbon' }
-  );
-
-  const crossfitClassReservation = {
-    local: "Rato",
-    hour: "18:05",
-    daysInAdvance: 2
-  };
-  agenda.every(
-    "05 18 * * 0-3,6",
-    'CrossFit Class',
-    crossfitClassReservation,
-    { timezone: 'Europe/Lisbon' }
-  );
-
-  const weightliftingClassReservation = {
-    local: "Rato",
-    hour: "20:15",
-    daysInAdvance: 2
-  };
-  agenda.every(
-    "15 20 * * 6",
-    'Weightlifting Class',
-    weightliftingClassReservation,
-    { timezone: 'Europe/Lisbon' }
-  );
-
-  const gymnasticsClassReservation = {
-    local: "Rato",
-    hour: "09:00",
-    daysInAdvance: 2
-  };
-  agenda.every(
-    "00 09 * * 4",
-    'Gymnastics Class',
-    gymnasticsClassReservation,
-    { timezone: 'Europe/Lisbon' }
-  );
   agenda.start();
 
   let basicAuthUsers = {};
