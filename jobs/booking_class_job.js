@@ -3,13 +3,13 @@ const puppeteer = require('puppeteer');
 const fs = require("fs");
 const {loginAndSaveCookies} = require('./cookie_job');
 const {loadCookies} = require('../services/cookie_sevices')
-const { add, format } = require('date-fns')
+const { add } = require('date-fns')
 
 function genCrossfitClassDateSelector(daysInAdvance) {
   const date = new Date()
-  const futurDate = add(date, {days: daysInAdvance, months: -1});
-  const dataDateValue = format(futurDate, "yyyy-M-d");
-
+  const futurDate = add(date, {days: daysInAdvance});
+  // the data-date value actualy has month 0 🤷‍♂️
+  const dataDateValue = `${futurDate.getFullYear()}-${futurDate.getMonth()}-${futurDate.getDate()}`;
   return `div[class~="calendar-month-current"] div[data-date="${dataDateValue}"]`;
 }
 
