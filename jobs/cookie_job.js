@@ -12,8 +12,8 @@ const loginAndSaveCookies = async (page) => {
 
   // login
   await page.waitForSelector('div.page-current > div[class~="login-screen-content"]');
-  await page.type('input[name=login]', process.env.LOGIN);
-  await page.type('input[name=password]', process.env.PASSWORD);
+  await page.type('input[name=login]', process.env.REGIBOX_LOGIN);
+  await page.type('input[name=password]', process.env.REGIBOX_PASSWORD);
   await page.click('input[value=LOGIN]');
 
   // wait for splash screen to go away

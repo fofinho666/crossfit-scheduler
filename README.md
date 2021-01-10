@@ -6,15 +6,15 @@ This project is basically a way for me to schedule my CrossFit classes automatic
 
 We have the following dependences to run this project:
 
-- [Node.js](https://nodejs.org/en/) v10 or above
-- [MongoDB](https://www.mongodb.com/) v2.6 or above
+- [Node.js](https://nodejs.org/en/) v14 or above
+- [MongoDB](https://www.mongodb.com/) v4.4 or above
 - [Chromium](https://www.chromium.org/) to run Puppeteer
 
 A `.env` file is also required. Here's an example of it:
 ```bash
-REGIBOX_URL="https://www.regibox.pt/app/app_nova/login.php"
-LOGIN=
-PASSWORD=
+REGIBOX_URL="https://www.regibox.pt/app/app_nova"
+REGIBOX_LOGIN=
+REGIBOX_PASSWORD=
 BOX_NAME="Off Limits CrossFit"
 ERROR_DIR="./error"
 MONGODB_URI="mongodb://127.0.0.1:27017/agenda"
@@ -41,7 +41,7 @@ With the Docker up and running we can use the following commands:
 
 We can also install **PM2** to manage and daemonized the application.
 - `$ sudo npm install -g pm2` - Install PM2 globally
-- `$ pm2 start index.js --name crossfit_scheduler` - Start the application with PM2
+- `$ pm2 start index.js --name crossfit-scheduler` - Start the application with PM2
 - `$ pm2 startup systemd` - Generate the boot scripts
 - `$ pm2 save` - Save our modifications
 
