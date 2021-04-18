@@ -1,0 +1,1 @@
+export const getPuppets = () => fetch("/api/puppets").then(res => res.json())

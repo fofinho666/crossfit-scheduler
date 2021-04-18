@@ -3,10 +3,10 @@ const router = require("express").Router()
 router
     .get("/", async (req, res) => {
         res.send([
-            {name: "Fetch Cookie", type: "fetchCookie", fields: []},
+            {name: "Fetch Cookie", puppet: "fetchCookie", fields: []},
             {
                 name: "Booking Class",
-                type: "bookingClass",
+                puppet: "bookingClass",
                 default: true,
                 fields: ["local", "hour", "daysInAdvance"]},
         ])
