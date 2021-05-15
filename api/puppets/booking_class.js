@@ -15,7 +15,7 @@ function genCrossfitClassDateSelector(daysInAdvance) {
 
 const run = async (crossfitClassLocal, crossfitClassHour, daysInAdvance) => {
     const base_url = process.env.REGIBOX_URL
-    const browser = await puppeteer.launch({ headless: false, args: ["--no-sandbox"] })
+    const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] })
     const [page] = await browser.pages()
     await page.setViewport({ width: 1280, height: 720 })
     // Configure the navigation timeout
