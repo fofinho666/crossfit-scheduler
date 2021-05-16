@@ -6,6 +6,7 @@ const jobValue = (job) => {
         interval: job.repeatInterval,
         nextRunAt: job.nextRunAt,
         lastRunAt: job.lastRunAt,
+        lastFinishedAt: job.lastFinishedAt,
         failReason: job.failReason,
         failedAt: job.failedAt,
         ...data
