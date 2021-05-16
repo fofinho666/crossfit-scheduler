@@ -7,7 +7,7 @@ const { add } = require("date-fns")
 
 function genCrossfitClassDateSelector(daysInAdvance) {
     const date = new Date()
-    const futurDate = add(date, { days: daysInAdvance })
+    const futurDate = add(date, { days: parseInt(daysInAdvance) })
     // the data-date value actualy has month 0 🤷‍♂️
     const dataDateValue = `${futurDate.getFullYear()}-${futurDate.getMonth()}-${futurDate.getDate()}`
     return `div[class~="calendar-month-current"] div[data-date="${dataDateValue}"]`

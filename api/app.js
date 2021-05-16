@@ -1,4 +1,3 @@
-const createError = require("http-errors")
 const express = require("express")
 const basicAuth = require("express-basic-auth")
 const logger = require("morgan")
