@@ -20,9 +20,9 @@ const CrossfitClassInfo = ({ local, hour, daysInAdvance }) => {
 
   return <div>
     class info:
-    <p>class local: <LocalValue /></p>
-    <p>class hour: <HourValue /></p>
-    <p>scheduled in advance: <DaysInAdvanceValue /></p>
+    <p>local: <LocalValue /></p>
+    <p>hour: <HourValue /></p>
+    <p>days in advance: <DaysInAdvanceValue /></p>
   </div>
 }
 
