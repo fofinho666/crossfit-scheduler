@@ -1,6 +1,6 @@
 require("dotenv").config()
 const puppeteer = require("puppeteer")
-const {saveCookies} = require("../services/cookie_sevices")
+const { saveCookies } = require("../services/cookie_sevices")
 
 
 const loginAndSaveCookies = async (page) => {
@@ -26,13 +26,14 @@ const loginAndSaveCookies = async (page) => {
 const run = async () => {
     const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] })
     const [page] = await browser.pages()
-    await page.setViewport({ width: 1280, height: 720})
+    await page.setViewport({ width: 1280, height: 720 })
     page.setDefaultNavigationTimeout(0)
 
     await page.goto(process.env.REGIBOX_URL)
     await loginAndSaveCookies(page)
     await browser.close()
 }
-
-exports.run = run
-exports.loginAndSaveCookies = loginAndSaveCookies
+module.exports = {
+    fetchCookie: run,
+    loginAndSaveCookies
+}

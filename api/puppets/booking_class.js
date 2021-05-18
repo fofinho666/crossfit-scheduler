@@ -99,4 +99,6 @@ const run = async (crossfitClassLocal, crossfitClassHour, daysInAdvance) => {
     }
 }
 
-exports.run = run
+module.exports = {
+    bookingClass: run
+}

@@ -1,8 +1,7 @@
 const router = require("express").Router()
-const bookingClassPuppet = require("../puppets/booking_class")
-const fetchCookiePuppet = require("../puppets/fetch_cookie")
 const { GetAll, GetById } = require("../finders/jobs")
 const { JobValue, JobValues } = require("../values/jobs")
+const { defineFetchCookie, defineBookingClass } = require("../puppets/agenda_definitions")
 
 router
     .get("/", (req, res) => {
@@ -18,9 +17,7 @@ router
 
         switch (puppet) {
         case "fetchCookie":
-            agenda.define(name, {priority: "lowest"}, async () => {
-                await fetchCookiePuppet.run()
-            })
+            defineFetchCookie(agenda, name)
 
             agenda.every(interval || "one time today", name, {puppet}, options)
                 .then((agenda_job) => GetById(agenda_job.attrs._id))
@@ -28,10 +25,7 @@ router
                 .then((jobValue) => res.send(jobValue))
             break
         case "bookingClass":
-            agenda.define(name, async (agenda_job) => {
-                const { local, hour, daysInAdvance } = agenda_job.attrs.data
-                await bookingClassPuppet.run(local, hour, daysInAdvance)
-            })
+            defineBookingClass(agenda, name)
 
             agenda.every(interval || "one time today", name, { local, hour, daysInAdvance, puppet }, options)
                 .then((agenda_job) => GetById(agenda_job.attrs._id))
