@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { getJobs } from "../../services/jobsApi"
-import JobList from "../molecules/jobList"
-import ScheduleJob from "../organisms/scheduleJob"
+import { getJobs } from "../services/jobsApi"
+import JobList from "./molecules/jobList"
+import ScheduleJob from "./organisms/scheduleJob"
 
 const App = () => {
 
