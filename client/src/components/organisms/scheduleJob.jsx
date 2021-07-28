@@ -1,11 +1,12 @@
-import React, {forceUpdate} from "react"
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import React from "react"
+import { Formik, Form } from 'formik'
 import { weeklyCron } from "../../services/translateToCron"
 import PuppetsForm from "../molecules/fromikForms/puppetsForm"
 import CronsFrom from "../molecules/fromikForms/cronsForm"
 import { postJob } from "../../services/jobsApi"
+import NameForm from "../molecules/fromikForms/nameForm"
 
-const ScheduleJob = ({onSave}) => {
+const ScheduleJob = ({ onSave }) => {
 
   const sanitazedObject = (value, filter) => (
     Object
@@ -28,14 +29,6 @@ const ScheduleJob = ({onSave}) => {
     }
   }
 
-  const validateName = (value) => {
-    if (!value || value.trim()==="") {
-      return "You must provide a valid name for the job"
-    }
-    else
-    return null
-  }
-
   const submit = (values) => {
     const puppetFields = sanitazedObject(values, /puppet-form-/)
     const interval = genCron(values)
@@ -48,19 +41,17 @@ const ScheduleJob = ({onSave}) => {
 
     postJob(payload).then(onSave)
   }
-
+  
   return (<Formik initialValues={{}} onSubmit={submit} >
     {({ isValid, dirty }) => (
       <Form>
-        <label htmlFor="name">Job name:</label>
-        <Field name="name" validate={validateName}/>
-        <ErrorMessage name="name" />
-
+        <NameForm/>
+        
         <PuppetsForm />
 
         <CronsFrom />
 
-        <button type="submit" disabled={!(isValid && dirty)}>Submit</button>
+        <button className="button is-primary" type="submit" disabled={!(isValid && dirty)}>Submit</button>
       </Form>
     )}
   </Formik>)

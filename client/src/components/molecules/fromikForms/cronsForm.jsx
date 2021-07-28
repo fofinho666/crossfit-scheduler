@@ -5,13 +5,19 @@ import Tabs from "../tabs"
 
 const CronsFrom = () => {
   return <>
-    <Tabs initialTab="Weekly Job">
-      <WeekDaysField label="Weekly Job" />
-      <p label="Monthly Job">ToD0</p>
-    </Tabs>
+    <div className="field">
+      <Tabs initialTab="Weekly Job">
+        <WeekDaysField label="Weekly Job" />
+        <p label="Monthly Job">ToD0</p>
+      </Tabs>
+    </div>
 
-    <div label="start-time-group">Starts at :</div>
-    <TimeField labelledby="start-time-group" />
+    <div className="field columns is-mobile is-centered">
+      <div className="column is-narrow">
+        <div className="label" label="start-time-group">Starts at</div>
+        <TimeField labelledby="start-time-group" />
+      </div>
+    </div>
   </>
 }
 

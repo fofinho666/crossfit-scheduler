@@ -11,10 +11,10 @@ const App = () => {
 
     useEffect(() => { loadJobs() }, [])
 
-    return <>
+    return <div className="container is-mobile">
     <ScheduleJob onSave={loadJobs}/>
     <JobList jobs={jobs}/>
-    </>
+    </div>
 }
 
 export default App

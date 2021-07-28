@@ -1,18 +1,32 @@
 import React, { useEffect } from "react"
-import { Field, useFormikContext } from 'formik'
+import { useFormikContext } from 'formik'
 import { sentenceCase } from "change-case";
+import TextField from "./textField";
 
 const PuppetFields = ({ puppet }) => {
   const { setFieldValue } = useFormikContext()
 
-  useEffect(() => { setFieldValue("puppet-form-puppet", puppet.puppet) }, [])
+  useEffect(() => { 
+    if (puppet){
+      setFieldValue("puppet-form-puppet", puppet.puppet)
+    } 
+  }, [])
+  
+  const validateField = (value) => {
+    if (!value || value.trim() === "") {
+      return `You must provide a value`
+    }
+    else
+      return null
+  }
 
-  return (
+  return <div className="columns is-mobile is-multiline is-centered">
     <For each="field" index="idx" of={puppet.fields}>
-      <label key={`label-${idx}`} htmlFor={`puppet-form-${field}`}>{sentenceCase(field)}: </label>
-      <Field key={`field-${idx}`} label={`puppet-form-${field}`} name={`puppet-form-${field}`} />
+      <div className="column is-narrow" key={`field-${idx}`} >
+        <TextField name={`puppet-form-${field}`} label={sentenceCase(field)}  validate={validateField}/>
+      </div>
     </For>
-  )
+  </div>
 }
 
 export default PuppetFields
