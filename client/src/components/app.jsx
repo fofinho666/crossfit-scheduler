@@ -7,16 +7,15 @@ const App = () => {
 
     return <JobPovider>
         <div className="container">
-            
-            <section class="section has-background-primary-dark p-2">
-                <nav class="level is-mobile">
-                    <div class="level-left">
-                        <div class="level-item ">
+            <section className="section has-background-primary-dark p-2">
+                <nav className="level is-mobile">
+                    <div className="level-left">
+                        <div className="level-item ">
                             <h1 className="title is-4 has-text-white">CrossFit Scheduler 🗓</h1>
                         </div>
                     </div>
-                    <div class="level-right">
-                        <div class="level-item">
+                    <div className="level-right">
+                        <div className="level-item">
                             <NewJobButton />
                         </div>
                     </div>

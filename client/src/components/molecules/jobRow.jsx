@@ -1,11 +1,11 @@
 import React, { useState } from "react"
-import FormatedDate from "./formatedDate"
-import HumanCron from "./humanCron"
-import DaysInAdvance from "./daysInAdvance"
 import isEqual from 'date-fns/isEqual'
-import JobFailReason from "./jobFailReason"
-import Cell from "../../atoms/cell"
 import { capitalCase } from "change-case";
+import FormatedDate from "./jobRow/formatedDate"
+import HumanCron from "./jobRow/humanCron"
+import DaysInAdvance from "./jobRow/daysInAdvance"
+import JobFailReason from "./jobRow/jobFailReason"
+import Cell from "../atoms/cell"
 
 const JobInfo = ({ job }) => {
 

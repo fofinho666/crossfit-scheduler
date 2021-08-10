@@ -1,14 +1,14 @@
 import React from "react"
 import { Formik, Form } from "formik"
-import { useJobs } from "../../atoms/jobsProducer"
-import PuppetsForm from "./forms/puppetsForm"
-import CronsFrom from "./forms/cronsForm"
-import JobNameForm from "./forms/jobNameForm"
-import { postJob } from "../../../services/jobsApi"
-import { weeklyCron } from "../../../services/translateToCron"
+import { useJobs } from "../atoms/jobsProducer"
+import PuppetsForm from "./jobModal/forms/puppetsForm"
+import CronsFrom from "./jobModal/forms/cronsForm"
+import JobNameForm from "./jobModal/forms/jobNameForm"
+import { postJob } from "../../services/jobsApi"
+import { weeklyCron } from "../../services/translateToCron"
 
 export default function JobModal({ activeModal, closeModal, title }) {
-  const { jobs, setJobs } = useJobs()
+  const { loadJobs } = useJobs()
 
   const modalClass = activeModal ? "modal is-active" : "modal"
 
@@ -43,9 +43,7 @@ export default function JobModal({ activeModal, closeModal, title }) {
       interval,
     }
 
-    postJob(payload)
-      .then(response => response.json())
-      .then(data => { setJobs([...jobs, data]) })
+    postJob(payload).then(() => { loadJobs() })
   }
 
   return <>

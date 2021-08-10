@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
-import JobModal from "../molecules/jobModal/jobModal"
+import JobModal from "../molecules/jobModal"
 
 const NewJobButton = () => {
 

@@ -14,7 +14,7 @@ export default function JobPovider({ children }) {
   useEffect(() => { loadJobs() }, [])
 
   return (
-    < JobsContext.Provider value={{ jobs, setJobs }} >
+    < JobsContext.Provider value={{ jobs, loadJobs }} >
       {children}
     </JobsContext.Provider >
   )

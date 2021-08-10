@@ -1,5 +1,5 @@
 import React from "react"
-import JobInfo from "../molecules/jobInfo/jobInfo"
+import JobRow from "../molecules/jobRow"
 import { useJobs } from "../atoms/jobsProducer"
 
 const JobList = () => {
@@ -8,7 +8,7 @@ const JobList = () => {
     return (
         <div className="b-table">
             <div className="table-wrapper has-mobile-cards">
-                <table className="table is-narrow is-hoverable is-fullwidth">
+                <table className="table is-hoverable is-fullwidth">
                     <thead>
                         <tr>
                             <th>Job Name</th>
@@ -24,7 +24,7 @@ const JobList = () => {
 
                     <tbody>
                         <For each="job" of={jobs}>
-                            <JobInfo key={job.id} job={job} />
+                            <JobRow key={job.id} job={job} />
                         </For>
                     </tbody>
                 </table>
